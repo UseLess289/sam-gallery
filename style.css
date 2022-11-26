@@ -44,7 +44,7 @@ h1::before{
 .top-content{
     background-color: rgb(184, 184, 184);
     width: 90%;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 20em auto;
     height: 60px;
     display: flex;
     align-items: center;
@@ -63,7 +63,8 @@ h1::before{
 
 .pic{
     position: relative;
-    height: 100% ;
+    height: 100%
+     ;
 }
 .pic img{
     width: 100%;
@@ -114,7 +115,7 @@ h1::before{
     color: white;
     text-align: center;
     color: #999;
-    font-weight: 50;
+    font-weight: 50em;
     text-align: left;
     height: 100px;
     text-align: top;
