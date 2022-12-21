@@ -69,7 +69,7 @@ h1::before{
     height: 100%;
 }
 .pic img{
-    width: 52em;
+    width: 80%;
     height: 100%;
     transition: .5s;
     margin-right: 4%;
@@ -108,14 +108,14 @@ h1::before{
 
 .footer {
     padding-bottom: 32px;
-    position:sticky;
+    position:fixed;
     left: 0;
     right: 0;
     bottom: 0;
     width: 100%;
     color: white;
     text-align: center;
-    color: rgb(75, 75, 75);
+    color: rgb(88, 88, 88);
     font-weight: 50em;
     text-align: left;
     height: 4em;
