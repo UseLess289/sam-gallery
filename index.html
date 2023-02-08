@@ -5,44 +5,60 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sam Gallery</title>
         <meta name="viewport" content="width=device-width"/>
+        <script src="script.js"></script>
         <link rel="stylesheet" href="style.css">
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="img/favicon.jpeg">
-        
-        <!--
-        <script type="text/javascript">
-            function openWin(url){
-            var sFileName = url.substring(url.lastIndexOf("/")+1,url.length);
-            newwin=window.open("img/full/",sFileName);
-            if(newwin){
-            window.onfocus=function(){newwin.window.close()}
-            }
-            }
-            </script>
-        -->
 
     </head>
     <body>
-        <!--
-        <input type="radio" name="Photos" id="check1" checked>
-        <input type="radio" name="Photos" id="check2">
-        <input type="radio" name="Photos" id="check3">
+        <script>
+            document.addEventListener("contextmenu", function(e){
+              e.preventDefault();
+            }, false);
+        </script>
 
-        <div class="container">
-            <h1>Dojo Sam</h1>
-            <div class="top-content">
-                <h3>Photo Gallery</h3>
-                <label for="check1">Photos</label>
-                <label for="check2">Astrophotography</label>
-                <label for="check3">About me</label>
-            </div>
-        -->
-        <div class="container" id="thumb">
+
+                 
+        <div id="title">
             <h1>sam-gallery</h1>
         </div>
+        <!--
+        <script>
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            const galleryContainer = document.querySelector('.gallery-container');
+
+            radioButtons.forEach(button => {
+                button.addEventListener('change', event => {
+                    const value = event.target.value;
+                    galleryContainer.style.gridTemplateColumns = `repeat(${value}, 1fr)`;
+            });
+        });
+        </script> 
+        <div class="box1">
+            <p class="t2">columns</p>
+        </div>
+
+        <div class="box">
+            <label class="radio" class="colonne">
+                <input type="radio" name="r" value="1" checked>
+                <span>one</span>
+            </label>
+            <label class="radio">
+                <input type="radio" name="r" value="2">
+                <span>two</span>
+            </label>
+            <label class="radio">
+                <input type="radio" name="r" value="6">
+                <span>six</span>
+            </label>
+        </div>
+        
+    -->
+
         <div class="photo-gallery">
             <div class="pic">
-                <img src="img/preview/1-1.jpg" ><!--onClick="openWin(this.href);return false"-->
+                <img src="img/preview/1-1.jpg">
             </div>
             <div class="pic">
                 <img src="img/preview/1-2.jpg">
@@ -96,9 +112,6 @@
                 <img src="img/preview/1-18.jpg">
             </div>
             <div class="pic">
-                <img src="img/preview/1-19.jpg">
-            </div>
-            <div class="pic">
                 <img src="img/preview/1-20.jpg">
             </div>
             <div class="pic">
@@ -123,9 +136,6 @@
                 <img src="img/preview/1-27.jpg">
             </div> 
             <div class="pic">
-                <img src="img/preview/1-28.jpg">
-            </div>
-            <div class="pic">
                 <img src="img/preview/1-29.jpg">
             </div>
             <div class="pic">
@@ -146,28 +156,20 @@
             <div class="pic">
                 <img src="img/preview/1-35.jpg">
             </div>
-            <div class="pic">
-                <img src="img/preview/1-36.jpg">
-            </div>
-            <div class="pic">
-                <img src="img/preview/1-37.jpg">
-            </div>
-            <div class="pic">
-                <img src="img/preview/1-38.jpg">
-            </div>
+            
+            
         </div>
-        
-                
-        <section>
-            <h2><div class="footer">
-                <div class="links">
-                    <a id="instagram" class="links__icon" href="https://www.instagram.com/sam_ul_mc">
-                        <span class="view-ig"> View My Instagram </span>
-                        <i class="fa fa-instagram fa-lg"></i>
-                    </a>
-                    <p class="date">Feel free to contact me if problems or questions - 13/11/2022</p>
-                </div>
-                </div>        
-        </section>
+                   
+    
+            
+        <footer>
+            <div class="links">
+                <a id="instagram" class="links__icon" href="https://www.instagram.com/sam_ul_mc">
+                    <span class="view-ig"> View My Instagram </span>
+                    <i class="fa fa-instagram fa-lg"></i>
+                </a>
+                <p class="date">Feel free to contact me if problems or questions - 13/11/2022</p>
+            </div>
+        </footer>
     </body>
-</html>
+</html>/
