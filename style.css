@@ -94,10 +94,7 @@ footer {
     padding: 10px;
     background-color: #000;
 }
-a:visited {
-    text-decoration: none;
-    color: inherit;
-}
+
 /* Styles pour la fenêtre modale */
 .modal {
     display: none;
@@ -129,9 +126,13 @@ a:visited {
     cursor: pointer;
 }
 /* Media query pour les téléphones (largeur maximale de 767px) */
-@media (max-width: 767px) {
+@media (max-width: 800px) {
     /* Réglez le nombre de colonnes sur 1 pour les téléphones */
     .photo-gallery {
         grid-template-columns: 1fr;
     }
+}
+a:visited {
+    text-decoration: none;
+    color: inherit;
 }
