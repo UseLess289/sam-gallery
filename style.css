@@ -128,3 +128,10 @@ a:visited {
     color: #fff;
     cursor: pointer;
 }
+/* Media query pour les téléphones (largeur maximale de 767px) */
+@media (max-width: 767px) {
+    /* Réglez le nombre de colonnes sur 1 pour les téléphones */
+    .photo-gallery {
+        grid-template-columns: 1fr;
+    }
+}
