@@ -57,8 +57,11 @@
         
     -->
 
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
         
-
         <div class="photo-gallery">
             <div class="pic">
                 <img src="img/preview/1-01.jpg">
@@ -168,6 +171,42 @@
             <div class="pic">
                 <img src="img/preview/1-35.jpg">
             </div>
+            <div class="pic">
+                <img src="img/preview/1-36.jpg">
+            </div>
+            <div class="pic">
+                <img src="img/preview/1-37.jpg">
+            </div>
+            <div class="pic">
+                <img src="img/preview/1-38.jpg">
+            </div>
+            <div class="pic">
+                <img src="img/preview/1-39.jpg">
+            </div>
+            <div class="pic">
+                <img src="img/preview/1-40.jpg">
+            </div>
+            <div class="pic">
+                <img src="img/preview/1-41.jpg">
+            </div>
+            <div class="pic">
+                <img src="img/preview/1-43.jpg">
+            </div>
+            <div class="pic">
+                <img src="img/preview/1-44.jpg">
+            </div>
+            <div class="pic">
+                <img src="img/preview/1-45.jpg">
+            </div>
+            <div class="pic">
+                <img src="img/preview/1-46.jpg">
+            </div>
+            <div class="pic">
+                <img src="img/preview/1-47.jpg">
+            </div>
+            <div class="pic">
+                <img src="img/preview/1-48.jpg">
+            </div>
             
             
         </div>
@@ -183,5 +222,69 @@
                 <p class="date">Feel free to contact me if problems or questions - 13/11/2022</p>
             </div>
         </footer>
+
+        <script>
+            // Fonction pour ouvrir la fenêtre modale avec l'image cliquée
+            function openModal(imageSrc) {
+                const modal = document.getElementById('imageModal');
+                const modalImage = document.getElementById('modalImage');
+                modalImage.src = imageSrc;
+                modal.style.display = 'block';
+            }
+        
+            // Fonction pour fermer la fenêtre modale
+            function closeModal() {
+                const modal = document.getElementById('imageModal');
+                modal.style.display = 'none';
+            }
+        
+            // Ajoutez un gestionnaire d'événements aux images pour ouvrir la fenêtre modale au clic
+            const images = document.querySelectorAll('.pic img');
+            images.forEach(image => {
+                image.addEventListener('click', () => {
+                    openModal(image.src);
+                });
+            });
+        </script>
+        
+
+        <script>
+            document.addEventListener("contextmenu", function(e){
+              e.preventDefault();
+            }, false);
+        
+            // Fonction pour ouvrir la fenêtre modale avec l'image cliquée
+            function openModal(imageSrc) {
+                const modal = document.getElementById('imageModal');
+                const modalImage = document.getElementById('modalImage');
+                modalImage.src = imageSrc;
+                modal.style.display = 'block';
+        
+                // Ajoute un gestionnaire d'événements pour fermer la fenêtre modale en cliquant en dehors de l'image
+                modal.addEventListener('click', closeModalOutside);
+            }
+        
+            // Fonction pour fermer la fenêtre modale
+            function closeModal() {
+                const modal = document.getElementById('imageModal');
+                modal.style.display = 'none';
+        
+                // Retirez le gestionnaire d'événements lorsque la fenêtre modale est fermée
+                modal.removeEventListener('click', closeModalOutside);
+            }
+        
+            // Fonction pour fermer la fenêtre modale en cliquant en dehors de l'image
+            function closeModalOutside(event) {
+                const modalImage = document.getElementById('modalImage');
+                if (event.target === modalImage) {
+                    return; // Ne fermez pas la fenêtre modale si l'utilisateur clique sur l'image
+                }
+                closeModal(); // Fermez la fenêtre modale si l'utilisateur clique en dehors de l'image
+            }
+        </script>
+        
+
+
+        
     </body>
 </html>/

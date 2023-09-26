@@ -1,1 +1,130 @@
-h1,h2{font-weight:400;margin:40px 0;text-align:center;position:relative}.title,h1,h2{text-align:center}.radio input,input{display:none}.pic,.radio input+span,.t2,h1,h2{position:relative}.title,.view-ig{letter-spacing:2px}*{margin:0;padding:0;box-sizing:content-box;font-family:'Space Grotesk',sans-serif;background:#000;min-height:100%}.title{width:100%}.box1,footer{text-align:left}h1{font-size:4em;color:#9f0000}h2{font-size:1em;color:#fa0000}.top-content{background-color:#b8b8b8;width:100%;height:60px;display:flex;align-items:center;box-shadow:1px 1px 3px #e4e4e4}.box,.box1{width:fit-content}a:link{text-decoration:none}.box{margin-left:4em;height:auto;display:grid;grid-template-columns:repeat(3,1fr);grid-gap:1em;color:#a9001f;margin-bottom:2em}.box1{height:3em}.t2{margin:3em;font-size:2em;display:flex;color:#fff}.radio{margin:15px 0;display:block;cursor:pointer}.radio:hover{color:#6a0000}.radio input{color:#fff}.radio input+span{line-height:22px;height:22px;padding-left:22px;display:block}.radio input+span:not(:empty){padding-left:30px}.radio input+span:after,.radio input+span:before{content:'';width:22px;height:22px;display:block;border-radius:50%;left:0;top:0;position:absolute}.radio input+span:before{background:#727272;transition:background .2s,transform .4s cubic-bezier(.175, .885, .32, 2)}.radio input+span:after{background:#c9c9c9;transform:scale(.78);transition:transform .6s cubic-bezier(.175, .885, .32, 1.4)}.radio input:checked+span:before{transform:scale(1.04);background:#a90000a6}.radio input:checked+span:after{transform:scale(.4);transition:transform .3s}.radio:hover input+span:before{transform:scale(.92)}.radio:hover input+span:after{transform:scale(.74)}.radio:hover input:checked+span:after{transform:scale(.4)}.photo-gallery{width:100%;display:grid;grid-template-columns:repeat(2,1fr);grid-gap:1%}.pic{height:100%;margin-bottom:10px}.pic img{width:80%;height:115%;transition:.5s;margin-left:10%}.links{padding-top:32px;margin-left:10px}.links__icon,.links__icon:link,.links__icon:visited{color:#aaa;text-decoration:none;font-size:14px;margin-right:8px;transition:color .2s;line-height:24px}.links__icon:hover{color:#730101}.view-ig{font-size:1.2em;text-transform:uppercase;font-weight:500;line-height:12px;text-align:top}footer{padding-bottom:32px;position:sticky;left:0;right:0;bottom:0;width:100%;color:#9b9b9b;font-weight:50em;height:3.5em;text-align:top}.date{text-align:right;margin-right:10px;text-align:top;font-size:.5em;width:fit-content}
+* {
+    margin: 0.2%;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
+    background: #000;
+}
+
+/* Styles globaux */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h1, h2 {
+    font-weight: 400;
+    margin: 40px 0;
+    text-align: center;
+    color :#730101
+}
+h1 {
+    color:#9f0000;
+    font-size:500%;
+}
+
+.title, h1, h2 {
+    text-align: center;
+}
+
+/* Styles pour la grille de photos */
+
+.photo-gallery {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Utilisation de 3 colonnes */
+    grid-gap: 20px;
+}
+
+.pic {
+    position: relative;
+    padding-bottom: calc(66.67% - 20px); /* Pour conserver le ratio 3/2 des images */
+    overflow: hidden;
+}
+
+.pic img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Pour conserver le ratio et couvrir tout l'espace */
+    transition: transform 0.3s ease; /* Animation de transformation au survol */
+}
+
+.pic:hover img {
+    transform: scale(1.05); /* Effet de zoom au survol */
+}
+
+/* Styles pour les liens */
+
+.links {
+    padding-top: 32px;
+    margin-left: 10px;
+}
+
+.links__icon,
+.links__icon:link,
+.links__icon:visited {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 8px;
+    transition: color 0.2s;
+    line-height: 24px;
+}
+
+.links__icon:hover {
+    color: #730101;
+}
+
+.view-ig {
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 12px;
+    text-align: top;
+}
+
+/* Styles pour le footer */
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #000;
+}
+a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+/* Styles pour la fenêtre modale */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 20px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    display: block;
+    margin: 0 auto;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+}
