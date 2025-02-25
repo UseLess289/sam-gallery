@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-145 -145 290 290">
+ <title>Equatorial coordinates</title>
+ <desc>A diagram of the equatorial coordinate system by CMG Lee based on http://commons.wikimedia.org/wiki/file:equatorial_coordinates.png</desc>
+  
+ <style type="text/css">
+  #main { font-family:Helvetica,Arial,sans-serif; font-size:20px; text-anchor:middle;
+          fill:#000000; stroke:none; stroke-width:0.5; stroke-linejoin:round; stroke-linecap:round; }
+  text  { stroke:none; pointer-events:none; }
+ </style>
+  
+ <defs>
+  <filter id="filter_shadow">
+   <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+   <feColorMatrix type="matrix" values="0,0,0,0,1 0,0,0,0,1 0,0,0,0,1 0,0,0,1,0"/>
+   <feBlend in="SourceGraphic"/>
+  </filter>
+  <radialGradient id="grad" cx="50%" cy="50%" r="75%" fx="25%" fy="25%">
+   <stop offset="10%" stop-color="#ffffff"/>
+   <stop offset="99%" stop-color="#000033"/>
+  </radialGradient>
+  <g id="sphere" opacity="0.5" transform="rotate(23)" stroke="#336699" stroke-width="3">
+    <circle cx="0" cy="0" r="100" fill="url(#grad)"/>
+    <path d="M   0,-99 A 63,99 0 0 1  0, 99" id="meridian3"/>
+    <path d="M   0,-99 A 30,99 0 0 0  0, 99" id="meridian2"/>
+    <path d="M   0,-99 A 90,99 0 0 0  0, 99" id="meridianl"/>
+    <path d="M -50,-86 A 60,20 0 0 1 50,-86" id="latitude1"/>
+    <path d="M -90,-40 A 95,30 0 0 1 90,-40" id="latitude2"/>
+    <path d="M -99, 10 A 99,25 0 0 1 99, 10" id="equator"/>
+    <path d="M -85, 50 A 85,17 0 0 1 85, 50" id="latitude4"/>
+    <path d="M -50, 85 A 50,10 0 0 1 50, 85" id="latitude5"/>
+   </g>
+ </defs>
+  
+ <circle cx="0" cy="0" r="99999" fill="#ffffff"/>
+ <g id="main">
+  <g fill="none">
+   <path d="M -99,0 A 99,20 0 0 1 99,0" stroke="#ffff00" stroke-width="5" id="Ecliptic back"/>
+   <use xlink:href="#sphere" transform="scale(0.5)"/>
+   <use xlink:href="#sphere"/>
+   <g id="celestial equator" opacity="1" transform="rotate(23)" stroke="#9E6D71" stroke-width="4">
+     <path d="M -99, 10 A 99,25 0 0 1 99, 10" />
+   </g>
+   <path d="M -99,0 A 99,20 0 0 0 99,0" stroke="#ffcc00" stroke-width="5" id="Ecliptic front1"/>
+   <path d="M -99,0 A 99,20 0 0 0 99,0" stroke="#ffff00" stroke-width="3" id="Ecliptic front2"/>
+   <g transform="rotate(23)" stroke="#ff6600" filter="url(#filter_shadow)">
+    <ellipse cx="62" cy="-10" rx="6" ry="9" stroke-width="2"/>
+    <path d="M 55,-36 v -14 l 8,15 M 55,-50 a 63,99 0 0 1 7,40 a 99,25 0 0 1 30,10 m -10,-10 l 10,10 l -12,0" stroke-width="4"/>
+   </g>
+  </g>
+  <path d="M -99,-105 L 58,9 M 99,-105 L 70,-15 M 99,105 L 80,30 M -99,80 L -70,15 M 6,-14 L -38,125" stroke="#000000"/>
+   
+  <g transform="translate(-144,-108)" text-anchor="start"><switch>
+   <text systemLanguage="ar">نقطة الربيع</text>
+   <text systemLanguage="de">Frühlingspunkt</text>
+   <text systemLanguage="el">Εαρινό σημείο</text>
+   <text systemLanguage="en"><tspan dy="-1em">First Point of Aries</tspan><tspan x="0" dy="1em">(vernal equinox)</tspan></text>
+   <text systemLanguage="eo"><tspan dy="-1em">Printempa ekvinoksa</tspan><tspan x="0" dy="1em">punkto</tspan></text>
+   <text systemLanguage="es"><tspan dy="-1em">Primer punto de Aries</tspan><tspan x="0" dy="1em">(equinocciio vernal)</tspan></text>
+   <text systemLanguage="fr">Point vernal (&#9800;)</text>
+   <text systemLanguage="hu">Tavaszpont</text>
+   <text systemLanguage="lb">Fréijoerspunkt</text>
+   <text systemLanguage="mk">Пролетна точка</text>
+   <text systemLanguage="nl">Lentepunt</text>
+   <text systemLanguage="ru"><tspan dy="-1em">точка весеннего</tspan><tspan x="0" dy="1em">равноденствия (&#9800;)</tspan></text>
+   <text systemLanguage="uk"><tspan dy="-1em">весняне</tspan><tspan x="0" dy="1em">рівнодення</tspan></text>
+   <text systemLanguage="zh">春分点</text>
+   <text><tspan dy="-1em">First Point of Aries</tspan><tspan x="0" dy="1em">(vernal equinox)</tspan></text>
+  </switch></g>
+  <g transform="translate(144,-108)" text-anchor="end"><switch>
+   <text systemLanguage="ar">ميل</text>
+   <text systemLanguage="de">Deklination</text>
+   <text systemLanguage="el">Απόκλιση αστέρος</text>
+   <text systemLanguage="en">Declination</text>
+   <text systemLanguage="eo">Deklinacio</text>
+   <text systemLanguage="es">Declinación</text>
+   <text systemLanguage="fr">Déclinaison</text>
+   <text systemLanguage="hu">Deklináció</text>
+   <text systemLanguage="lb">Deklinatioun</text>
+   <text systemLanguage="mk">Деклинација</text>
+   <text systemLanguage="nl">Declinatie</text>
+   <text systemLanguage="ru">склонение</text>
+   <text systemLanguage="uk">схилення</text>
+   <text systemLanguage="zh">赤纬</text>
+   <text>Declination</text>
+  </switch></g>
+  <g transform="translate(144,120)" text-anchor="end"><switch>
+   <text systemLanguage="ar">مطلع مستقيم</text>
+   <text systemLanguage="de">Rektaszension</text>
+   <text systemLanguage="el">ορθή αναφορά</text>
+   <text systemLanguage="en"><tspan x="-1em">Right</tspan><tspan x="0" dy="1em">ascension</tspan></text>
+   <text systemLanguage="eo">Rektascensio</text>
+   <text systemLanguage="es">Ascensión recta</text>
+   <text systemLanguage="fr">Ascension droite</text>
+   <text systemLanguage="hu">Rektaszcensió</text>
+   <text systemLanguage="lb">Rektazensioun</text>
+   <text systemLanguage="mk">Ректасцензија</text>
+   <text systemLanguage="nl">Rechte Klimming</text>
+   <text systemLanguage="ru">Прямое восхождение</text>
+   <text systemLanguage="uk">пряме піднесення</text>
+   <text systemLanguage="zh">赤经</text>
+   <text><tspan x="-1em">Right</tspan><tspan x="0" dy="1em">ascension</tspan></text>
+  </switch></g>
+  <g transform="translate(-144,100)" text-anchor="start"><switch>
+   <text systemLanguage="ar">مسار الشمس</text>
+   <text systemLanguage="de">Ekliptik</text>
+   <text systemLanguage="el">Εκλειπτική</text>
+   <text systemLanguage="en">Ecliptic</text>
+   <text systemLanguage="eo">Ekliptiko</text>
+   <text systemLanguage="es">Ecliptica</text>
+   <text systemLanguage="fr">Écliptique</text>
+   <text systemLanguage="hu">Ekliptika</text>
+   <text systemLanguage="lb">Ekliptik</text>
+   <text systemLanguage="mk">Еклиптика</text>
+   <text systemLanguage="nl">Ecliptica</text>
+   <text systemLanguage="ru">Эклиптика</text>
+   <text systemLanguage="uk">Екліптика</text>
+   <text systemLanguage="zh">黄道</text>
+   <text>Ecliptic</text>
+  </switch></g>
+  <g transform="translate(-144,140)" text-anchor="start"><switch>
+   <text systemLanguage="ar">خط الاستواء السماوي</text>
+   <text systemLanguage="de">Himmelsäquator</text>
+   <text systemLanguage="el">Ουράνιος ισημερινός</text>
+   <text systemLanguage="en">Celestial equator</text>
+   <text systemLanguage="eo">Ĉiela ekvatoro</text>
+   <text systemLanguage="es">Ecuador celeste</text>
+   <text systemLanguage="fr">Équateur céleste</text>
+   <text systemLanguage="hu">Égi egyenrangú</text>
+   <text systemLanguage="lb">Himmelsequator</text>
+   <text systemLanguage="mk">Небесен екватор</text>
+   <text systemLanguage="nl">Hemelevenaar</text>
+   <text systemLanguage="ru">Небесный экватор</text>
+   <text systemLanguage="uk">Небесний екватор</text>
+   <text systemLanguage="zh">天球赤道</text>
+   <text>Celestial equator</text>
+  </switch></g>
+ </g>
+</svg>
