@@ -1,58 +1,48 @@
 const sharp = require('sharp');
-const fs = require('fs').promises;
+const fs = require('fs');
 const path = require('path');
 
-const sizes = {
-    small: 400,
-    medium: 800,
-    large: 1200
-};
+const inputDir = 'img/preview';
+const outputDir = 'img/optimized';
 
-async function optimizeImages() {
-    try {
-        // Lire le contenu du fichier photos.json
-        const photosJson = await fs.readFile('photos.json', 'utf8');
-        const { photos } = JSON.parse(photosJson);
-
-        // Créer le dossier optimized s'il n'existe pas
-        await fs.mkdir('img/optimized', { recursive: true });
-
-        // Traiter chaque image
-        for (const photo of photos) {
-            const filename = path.basename(photo, '.jpg');
-            
-            // Créer les différentes tailles
-            for (const [size, width] of Object.entries(sizes)) {
-                const outputPath = `img/optimized/${filename}-${size}.jpg`;
-                
-                await sharp(photo)
-                    .resize(width, null, { 
-                        withoutEnlargement: true,
-                        fit: 'inside'
-                    })
-                    .jpeg({ 
-                        quality: 80,
-                        progressive: true
-                    })
-                    .toFile(outputPath);
-                
-                // Créer aussi une version WebP
-                await sharp(photo)
-                    .resize(width, null, { 
-                        withoutEnlargement: true,
-                        fit: 'inside'
-                    })
-                    .webp({ 
-                        quality: 80
-                    })
-                    .toFile(outputPath.replace('.jpg', '.webp'));
-            }
-        }
-
-        console.log('Images optimisées avec succès !');
-    } catch (error) {
-        console.error('Erreur lors de l\'optimisation des images:', error);
-    }
+// Créer le dossier de sortie s'il n'existe pas
+if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
 }
 
-optimizeImages(); 
+// Configuration d'optimisation
+const config = {
+    quality: 80,
+    width: 800,
+    format: 'webp'
+};
+
+// Lire tous les fichiers du dossier d'entrée
+fs.readdir(inputDir, (err, files) => {
+    if (err) {
+        console.error('Erreur lors de la lecture du dossier:', err);
+        return;
+    }
+
+    files.forEach(file => {
+        if (file.match(/\.(jpg|jpeg|png)$/i)) {
+            const inputPath = path.join(inputDir, file);
+            const outputPath = path.join(outputDir, `${path.parse(file).name}.webp`);
+
+            sharp(inputPath)
+                .resize(config.width, null, {
+                    withoutEnlargement: true,
+                    fit: 'inside'
+                })
+                .webp({ quality: config.quality })
+                .toFile(outputPath)
+                .then(info => {
+                    const inputSize = fs.statSync(inputPath).size;
+                    console.log(`${file}: ${(inputSize/1024).toFixed(2)}KB -> ${(info.size/1024).toFixed(2)}KB`);
+                })
+                .catch(err => {
+                    console.error(`Erreur lors de l'optimisation de ${file}:`, err);
+                });
+        }
+    });
+}); 

@@ -6,6 +6,10 @@
     <meta name="theme-color" content="#000000">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Performance optimizations -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" as="style">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Security headers -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://bandcamp.com https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https:; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -17,6 +21,10 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.jpeg">
+    <!-- Préchargement des premières images -->
+    <link rel="preload" as="image" href="img/preview/1-99.jpg">
+    <link rel="preload" as="image" href="img/preview/1-98.jpg">
+    <link rel="preload" as="image" href="img/preview/1-97.jpg">
 </head>
 <body>
     <!-- Loader -->
@@ -123,7 +131,11 @@
         // Fonction pour sanitizer les URLs des images
         function sanitizeImageUrl(url) {
             try {
-                const sanitized = new URL(url, window.location.origin);
+                // Obtenir le chemin de base du site
+                const basePath = window.location.pathname.replace(/\/[^/]*$/, '/');
+                // Si nous sommes sur GitHub Pages, le chemin de base sera /nom-du-repo/
+                const fullUrl = url.startsWith('/') ? url : basePath + url;
+                const sanitized = new URL(fullUrl, window.location.origin);
                 if (sanitized.pathname.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
                     return sanitized.href;
                 }
@@ -241,6 +253,7 @@
         // Fonction de chargement des images améliorée
         async function loadImages() {
             try {
+                console.log('Début du chargement des images');
                 const response = await fetch('photos.json');
                 if (!response.ok) throw new Error('Network response was not ok');
                 
@@ -257,7 +270,10 @@
                         
                         const img = document.createElement('img');
                         const sanitizedSrc = sanitizeImageUrl(src);
+                        console.log(`Image ${index + 1}:`, { original: src, sanitized: sanitizedSrc });
+                        
                         if (!sanitizedSrc) {
+                            console.error(`URL invalide pour l'image ${index + 1}:`, src);
                             resolve();
                             return;
                         }
@@ -267,9 +283,12 @@
                         img.alt = `Photo ${index + 1}`;
                         img.setAttribute('importance', 'low');
                         
-                        img.onload = () => resolve();
-                        img.onerror = () => {
-                            console.error(`Erreur de chargement pour l'image: ${src}`);
+                        img.onload = () => {
+                            console.log(`Image ${index + 1} chargée avec succès`);
+                            resolve();
+                        };
+                        img.onerror = (e) => {
+                            console.error(`Erreur de chargement pour l'image ${index + 1}:`, src, e);
                             resolve();
                         };
                         
