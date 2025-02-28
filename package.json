@@ -1,0 +1,11 @@
+{
+  "name": "sam-gallery",
+  "version": "1.0.0",
+  "description": "Galerie photo personnelle",
+  "scripts": {
+    "optimize": "node optimize-images.js"
+  },
+  "dependencies": {
+    "sharp": "^0.33.2"
+  }
+} 

@@ -35,39 +35,78 @@ h1 {
 .photo-gallery {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Utilisation de 3 colonnes */
     grid-gap: 20px;
+    padding: 20px;
+    opacity: 0;
+    transition: all 0.5s ease-in;
+}
+
+.photo-gallery.loaded {
+    opacity: 1;
 }
 
 .pic {
     position: relative;
-    padding-bottom: calc(66.67% - 20px); /* Pour conserver le ratio 3/2 des images */
+    width: 100%;
+    padding-bottom: 66.67%; /* Ratio 3:2 */
     overflow: hidden;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.pic.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .pic img {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Pour conserver le ratio et couvrir tout l'espace */
-    transition: transform 0.3s ease; /* Animation de transformation au survol */
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
 .pic:hover img {
-    transform: scale(1.05); /* Effet de zoom au survol */
+    transform: scale(1.05);
 }
 
-/* Styles pour les liens */
-
-.links {
-    padding-top: 32px;
-    margin-left: 10px;
+.pic::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
+.pic:hover::after {
+    opacity: 1;
+}
+
+/* Styles globaux pour les liens */
+a, a:visited, a:link {
+    color: #9f0000 !important;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #730101 !important;
+}
+
+/* Styles pour les liens spécifiques */
 .links__icon,
 .links__icon:link,
 .links__icon:visited {
-    color: #aaa;
+    color: #aaa !important;
     text-decoration: none;
     font-size: 14px;
     margin-right: 8px;
@@ -76,7 +115,7 @@ h1 {
 }
 
 .links__icon:hover {
-    color: #730101;
+    color: #730101 !important;
 }
 
 .view-ig {
@@ -99,40 +138,343 @@ footer {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
-    padding-top: 20px;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    opacity: 1;
 }
 
 .modal-content {
-    display: block;
-    margin: 0 auto;
     max-width: 90%;
-    max-height: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border: 2px solid #333;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background: none;
 }
 
 .close {
     position: absolute;
     top: 20px;
     right: 30px;
-    font-size: 30px;
-    font-weight: bold;
     color: #fff;
+    font-size: 40px;
+    font-weight: bold;
     cursor: pointer;
+    z-index: 1001;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
 }
-/* Media query pour les téléphones (largeur maximale de 767px) */
+
+.close:hover {
+    opacity: 0.8;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+/* Media queries */
 @media (max-width: 800px) {
-    /* Réglez le nombre de colonnes sur 1 pour les téléphones */
     .photo-gallery {
         grid-template-columns: 1fr;
     }
+
+    .nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .close {
+        font-size: 30px;
+        top: 10px;
+        right: 20px;
+    }
+
+    .modal-content {
+        max-width: 95%;
+        max-height: 95vh;
+    }
 }
-a:visited {
-    text-decoration: none;
-    color: inherit;
+
+/* Media queries pour responsive design */
+@media (max-width: 1024px) {
+    .photo-gallery.columns-4 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 300%;
+        margin: 20px 0;
+    }
+
+    h2 {
+        font-size: 120%;
+        margin: 15px 0;
+    }
+
+    .photo-gallery.columns-3,
+    .photo-gallery.columns-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pic {
+        padding-bottom: 75%; /* Ratio 4:3 pour mobile */
+    }
+
+    /* Ajustements de la modale pour mobile */
+    .modal-content {
+        max-width: 98%;
+        max-height: 80vh;
+    }
+
+    .nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    .prev-btn {
+        left: 5px;
+    }
+
+    .next-btn {
+        right: 5px;
+    }
+
+    .close {
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+    }
+
+    /* Ajustements du loader pour mobile */
+    .loader {
+        width: 40px;
+        height: 40px;
+        border-width: 2px;
+    }
+
+    .grid-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Ajustements pour les très petits écrans */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 200%;
+        margin: 15px 0;
+    }
+
+    h2 {
+        font-size: 100%;
+        margin: 10px 0;
+    }
+
+    .view-ig {
+        font-size: 1em;
+    }
+
+    .date {
+        font-size: 0.8em;
+    }
+
+    /* Optimisation du touch pour mobile */
+    .pic {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Amélioration de l'espacement pour le footer sur mobile */
+    footer {
+        padding: 15px 5px;
+    }
+
+    .links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .photo-gallery.columns-2,
+    .photo-gallery.columns-3,
+    .photo-gallery.columns-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Ajustements pour l'orientation paysage sur mobile */
+@media (max-height: 480px) and (orientation: landscape) {
+    .modal-content {
+        max-height: 90vh;
+    }
+
+    h1 {
+        margin: 10px 0;
+    }
+
+    .nav-btn {
+        transform: translateY(-50%) scale(0.8);
+    }
+}
+
+/* Support des écrans à haute densité de pixels */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .pic img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* Styles pour le loader */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    transition: opacity 0.5s ease-out;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #333;
+    border-radius: 50%;
+    border-top-color: #9f0000;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Animation de fade-in pour les images */
+.photo-gallery {
+    opacity: 0;
+    transition: opacity 1s ease-in;
+}
+
+.photo-gallery.loaded {
+    opacity: 1;
+}
+
+.pic {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.pic.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Styles pour les contrôles de grille */
+.grid-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 600px;
+}
+
+.grid-label {
+    color: #9f0000;
+    font-size: 1.2em;
+    white-space: nowrap;
+}
+
+.grid-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.grid-btn {
+    background: #111;
+    color: #fff;
+    border: 1px solid #333;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.grid-btn:hover {
+    background: #222;
+    transform: translateY(-2px);
+}
+
+.grid-btn.active {
+    background: #9f0000;
+    border-color: #9f0000;
+}
+
+/* Classes pour différentes configurations de grille */
+.photo-gallery.columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.photo-gallery.columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.photo-gallery.columns-4 {
+    grid-template-columns: repeat(4, 1fr);
 }

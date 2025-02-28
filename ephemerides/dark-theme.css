@@ -48,13 +48,15 @@ code, pre, .jp-InputArea-editor, .jp-OutputArea-output {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5) !important;
 }
 
-a {
+/* Styles des liens */
+a, a:visited, a:link {
     color: #9f0000 !important;
     text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
+    color: #730101 !important;
 }
 
 pre { 

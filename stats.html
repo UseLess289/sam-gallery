@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques - Sam Gallery</title>
+    <link rel="stylesheet" href="stats.css">
+</head>
+<body>
+    <div id="loginForm" class="login-container">
+        <div class="login-box">
+            <h2>Connexion Administrateur</h2>
+            <form id="adminLogin" onsubmit="return false;">
+                <div class="input-group">
+                    <label for="username">Identifiant</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit">Se connecter</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="dashboard" class="dashboard" style="display: none;">
+        <h1>Tableau de bord - Sam Gallery</h1>
+        
+        <div class="stats-grid">
+            <!-- Performance -->
+            <div class="stats-card">
+                <h2>Performance</h2>
+                <div class="metrics">
+                    <div id="pageLoadTime">
+                        <label>Temps de chargement moyen</label>
+                        <span class="value">--</span>
+                    </div>
+                    <div id="imageLoadTime">
+                        <label>Temps de chargement des images</label>
+                        <span class="value">--</span>
+                    </div>
+                    <div class="sub-metrics">
+                        <div>
+                            <label>LCP</label>
+                            <span id="lcp">--</span>
+                        </div>
+                        <div>
+                            <label>FID</label>
+                            <span id="fid">--</span>
+                        </div>
+                        <div>
+                            <label>CLS</label>
+                            <span id="cls">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactions -->
+            <div class="stats-card">
+                <h2>Interactions</h2>
+                <div class="metrics">
+                    <div id="totalVisits">
+                        <label>Visites totales</label>
+                        <span class="value">--</span>
+                    </div>
+                    <div id="imageClicks">
+                        <label>Images consultées</label>
+                        <span class="value">--</span>
+                    </div>
+                    <div id="avgTimeOnPage">
+                        <label>Temps moyen sur la page</label>
+                        <span class="value">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Erreurs -->
+            <div class="stats-card">
+                <h2>Erreurs</h2>
+                <div class="metrics">
+                    <div id="totalErrors">
+                        <label>Total des erreurs</label>
+                        <span class="value">--</span>
+                    </div>
+                    <div class="error-list">
+                        <label>Erreurs récentes</label>
+                        <ul id="recentErrors"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Images populaires -->
+            <div class="stats-card">
+                <h2>Images populaires</h2>
+                <div id="popularImages" class="image-stats"></div>
+            </div>
+
+            <!-- Activité -->
+            <div class="stats-card full-width">
+                <h2>Activité des 7 derniers jours</h2>
+                <div class="chart-container">
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contrôles -->
+        <div class="controls">
+            <button id="refreshStats">Actualiser</button>
+            <button id="exportData">Exporter les données</button>
+            <button id="clearData">Effacer les données</button>
+            <button id="logout" class="logout-btn">Déconnexion</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module">
+        // Gestion de l'authentification
+        const ADMIN_CREDENTIALS = {
+            username: 'admin',
+            password: 'sam-gallery-2024' // À changer pour un mot de passe plus sécurisé
+        };
+
+        const loginForm = document.getElementById('adminLogin');
+        const dashboard = document.getElementById('dashboard');
+        const loginContainer = document.getElementById('loginForm');
+        const logoutBtn = document.getElementById('logout');
+
+        function checkAuth() {
+            return sessionStorage.getItem('authenticated') === 'true';
+        }
+
+        function showDashboard() {
+            loginContainer.style.display = 'none';
+            dashboard.style.display = 'block';
+        }
+
+        function showLogin() {
+            loginContainer.style.display = 'flex';
+            dashboard.style.display = 'none';
+            sessionStorage.removeItem('authenticated');
+        }
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === ADMIN_CREDENTIALS.username && 
+                password === ADMIN_CREDENTIALS.password) {
+                sessionStorage.setItem('authenticated', 'true');
+                showDashboard();
+            } else {
+                alert('Identifiants incorrects');
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            showLogin();
+        });
+
+        // Vérification de l'authentification au chargement
+        if (checkAuth()) {
+            showDashboard();
+        } else {
+            showLogin();
+        }
+    </script>
+    <script type="module" src="js/stats-dashboard.js"></script>
+</body>
+</html> 

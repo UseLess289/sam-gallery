@@ -2,95 +2,340 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Security headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://bandcamp.com https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https:; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+    <!-- Performance monitoring -->
+    <script src="https://unpkg.com/web-vitals"></script>
     <title>Sam Gallery</title>
-    <meta name="viewport" content="width=device-width"/>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.jpeg">
 </head>
 <body>
-<div id="title">
-    <a href="index.html"><h1>sam-gallery</h1></a>
-</div>
-
-<div id="imageModal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <img class="modal-content" id="modalImage">
-</div>
-<div id="subtitle"></div>
-    <a href="./ephemerides/ephemeride.html"><h2>Cliquer ici pour découvrir le calcul des éphémérides</h2></a>
-</div>
-<div>
-<iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3197783185/size=small/bgcol=333333/linkcol=e32c14/transparent=true/" seamless><a href="https://rugglesruggles.bandcamp.com/album/the-life-of-pablo-remixes">The Life of Pablo Remixes de Ruggles</a></iframe>
-</div>
-    
-<div class="photo-gallery">
-    <!-- Images seront chargées ici dynamiquement -->
-</div>
-
-<footer>
-    <div class="links">
-        <a id="instagram" class="links__icon" href="https://www.instagram.com/sam_ul_mc">
-            <span class="view-ig"> View My Instagram </span>
-            <i class="fa fa-instagram fa-lg"></i>
-        </a>
-        <p class="date">Feel free to contact me if problems or questions - 13/11/2022</p>
+    <!-- Loader -->
+    <div class="loader-container" id="loader">
+        <div class="loader"></div>
     </div>
-</footer>
 
-<script>
-    document.addEventListener("contextmenu", function(e){
-        e.preventDefault();
-    }, false);
+    <div id="title">
+        <a href="index.html"><h1>sam-gallery</h1></a>
+    </div>
 
-    function openModal(imageSrc) {
-        const modal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        modalImage.src = imageSrc;
-        modal.style.display = 'block';
-    }
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <span class="close">&times;</span>
+        <button class="nav-btn prev-btn">&lt;</button>
+        <button class="nav-btn next-btn">&gt;</button>
+        <img class="modal-content" id="modalImage">
+    </div>
 
-    function closeModal() {
-        const modal = document.getElementById('imageModal');
-        modal.style.display = 'none';
-    }
+    <div id="subtitle">
+        <a href="./ephemerides/ephemeride.html"><h2>Cliquer ici pour découvrir le calcul des éphémérides</h2></a>
+    </div>
 
-    function closeModalOutside(event) {
-        const modalImage = document.getElementById('modalImage');
-        if (event.target === modalImage) {
-            return;
+    <div>
+        <iframe style="border: 0; width: 100%; height: 42px;" 
+                src="https://bandcamp.com/EmbeddedPlayer/album=3197783185/size=small/bgcol=333333/linkcol=e32c14/transparent=true/" 
+                seamless>
+            <a href="https://rugglesruggles.bandcamp.com/album/the-life-of-pablo-remixes">
+                The Life of Pablo Remixes de Ruggles
+            </a>
+        </iframe>
+    </div>
+    
+    <div class="grid-controls">
+        <span class="grid-label">Colonnes :</span>
+        <div class="grid-buttons">
+            <button class="grid-btn" data-columns="2">2</button>
+            <button class="grid-btn" data-columns="3">3</button>
+            <button class="grid-btn" data-columns="4">4</button>
+        </div>
+    </div>
+
+    <div class="photo-gallery">
+        <!-- Images seront chargées ici dynamiquement -->
+    </div>
+
+    <footer>
+        <div class="links">
+            <a id="instagram" class="links__icon" href="https://www.instagram.com/sam_ul_mc">
+                <span class="view-ig">View My Instagram</span>
+                <i class="fa fa-instagram fa-lg"></i>
+            </a>
+            <p class="date">Feel free to contact me if problems or questions - 13/11/2022</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import Analytics from './js/analytics.js';
+        import Storage from './js/storage.js';
+
+        // Initialisation du système d'analytics
+        if (Storage.init()) {
+            Analytics.init();
         }
-        closeModal();
-    }
+    </script>
 
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch('photos.json')
-        .then(response => response.json())
-        .then(data => {
-            const photoGallery = document.querySelector('.photo-gallery');
-            const shuffledPhotos = shuffleArray(data.photos); // Mélange les chemins d'accès aux photos
-            shuffledPhotos.forEach(photo => {
-                const img = document.createElement('img');
-                img.src = photo;
-                const pic = document.createElement('div');
-                pic.classList.add('pic');
-                pic.appendChild(img);
-                photoGallery.appendChild(pic);
-                img.addEventListener('click', () => {
-                    openModal(photo);
+    <script>
+        // Utilisation du mode strict pour une meilleure sécurité
+        'use strict';
+
+        // Constantes pour la configuration
+        const CONFIG = {
+            ANIMATION_DELAY: 100,
+            SWIPE_THRESHOLD: 50,
+            MODAL_TRANSITION_DELAY: 300,
+            LOADER_HIDE_DELAY: 500
+        };
+
+        // Désactiver le clic droit de manière plus sécurisée
+        document.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            return false;
+        });
+
+        // Variables globales dans un objet state
+        const state = {
+            currentIndex: 0,
+            images: [],
+            touchStartX: 0,
+            touchEndX: 0
+        };
+        
+        // Éléments DOM regroupés
+        const elements = {
+            modal: document.getElementById('imageModal'),
+            modalImg: document.getElementById('modalImage'),
+            gallery: document.querySelector('.photo-gallery'),
+            closeBtn: document.querySelector('.close'),
+            prevBtn: document.querySelector('.prev-btn'),
+            nextBtn: document.querySelector('.next-btn'),
+            loader: document.getElementById('loader')
+        };
+
+        // Fonction pour sanitizer les URLs des images
+        function sanitizeImageUrl(url) {
+            try {
+                const sanitized = new URL(url, window.location.origin);
+                if (sanitized.pathname.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+                    return sanitized.href;
+                }
+                throw new Error('Invalid image type');
+            } catch (e) {
+                console.error('Invalid image URL:', url);
+                return '';
+            }
+        }
+
+        // Fonction pour gérer les erreurs
+        function handleError(error, fallbackMessage = 'Une erreur est survenue') {
+            console.error('Error:', error);
+            elements.gallery.innerHTML = `<p style="color: red;">${fallbackMessage}</p>`;
+            elements.loader.style.display = 'none';
+        }
+
+        // Fonction pour l'apparition progressive des images
+        function revealImages() {
+            const pics = document.querySelectorAll('.pic');
+            pics.forEach((pic, index) => {
+                setTimeout(() => {
+                    pic.classList.add('visible');
+                }, index * CONFIG.ANIMATION_DELAY);
+            });
+        }
+
+        // Fonction de mélange aléatoire améliorée
+        function shuffleArray(array) {
+            if (!Array.isArray(array)) return [];
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Fonctions de la modale avec gestion d'erreurs
+        function showImage(index) {
+            if (!state.images[index]) return;
+            state.currentIndex = index;
+            elements.modalImg.src = sanitizeImageUrl(state.images[index]);
+            elements.modal.style.display = 'flex';
+            requestAnimationFrame(() => {
+                elements.modal.classList.add('active');
+            });
+            updateNavButtons();
+        }
+
+        function closeModal() {
+            elements.modal.classList.remove('active');
+            setTimeout(() => {
+                elements.modal.style.display = 'none';
+            }, CONFIG.MODAL_TRANSITION_DELAY);
+        }
+
+        function nextImage() {
+            showImage((state.currentIndex + 1) % state.images.length);
+        }
+
+        function prevImage() {
+            showImage((state.currentIndex - 1 + state.images.length) % state.images.length);
+        }
+
+        function updateNavButtons() {
+            const hasMultipleImages = state.images.length > 1;
+            elements.prevBtn.style.display = hasMultipleImages ? 'block' : 'none';
+            elements.nextBtn.style.display = hasMultipleImages ? 'block' : 'none';
+        }
+
+        // Gestionnaires d'événements optimisés
+        function setupEventListeners() {
+            elements.closeBtn.addEventListener('click', closeModal);
+            elements.prevBtn.addEventListener('click', prevImage);
+            elements.nextBtn.addEventListener('click', nextImage);
+            
+            elements.modal.addEventListener('click', e => {
+                if (e.target === elements.modal) closeModal();
+            });
+
+            document.addEventListener('keydown', e => {
+                if (!elements.modal.classList.contains('active')) return;
+                
+                switch(e.key) {
+                    case 'Escape': closeModal(); break;
+                    case 'ArrowLeft': prevImage(); break;
+                    case 'ArrowRight': nextImage(); break;
+                }
+            });
+
+            // Gestion tactile
+            elements.modal.addEventListener('touchstart', e => {
+                state.touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            
+            elements.modal.addEventListener('touchend', e => {
+                state.touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        }
+
+        function handleSwipe() {
+            const diff = state.touchEndX - state.touchStartX;
+            
+            if (Math.abs(diff) > CONFIG.SWIPE_THRESHOLD) {
+                if (diff > 0) {
+                    prevImage();
+                } else {
+                    nextImage();
+                }
+            }
+        }
+
+        // Fonction de chargement des images améliorée
+        async function loadImages() {
+            try {
+                const response = await fetch('photos.json');
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const data = await response.json();
+                if (!Array.isArray(data.photos)) throw new Error('Invalid data format');
+
+                state.images = shuffleArray(data.photos);
+                console.log('Images chargées et mélangées:', state.images.length);
+                
+                const loadPromises = state.images.map((src, index) => {
+                    return new Promise((resolve) => {
+                        const container = document.createElement('div');
+                        container.className = 'pic';
+                        
+                        const img = document.createElement('img');
+                        const sanitizedSrc = sanitizeImageUrl(src);
+                        if (!sanitizedSrc) {
+                            resolve();
+                            return;
+                        }
+
+                        img.src = sanitizedSrc;
+                        img.loading = 'lazy';
+                        img.alt = `Photo ${index + 1}`;
+                        img.setAttribute('importance', 'low');
+                        
+                        img.onload = () => resolve();
+                        img.onerror = () => {
+                            console.error(`Erreur de chargement pour l'image: ${src}`);
+                            resolve();
+                        };
+                        
+                        container.onclick = () => showImage(index);
+                        container.appendChild(img);
+                        elements.gallery.appendChild(container);
+                    });
                 });
+
+                await Promise.all(loadPromises);
+                elements.loader.style.opacity = '0';
+                
+                setTimeout(() => {
+                    elements.loader.style.display = 'none';
+                    elements.gallery.classList.add('loaded');
+                    revealImages();
+                }, CONFIG.LOADER_HIDE_DELAY);
+
+            } catch (error) {
+                handleError(error, 'Erreur lors du chargement des images');
+            }
+        }
+
+        // Gestion de la grille
+        const gridButtons = document.querySelectorAll('.grid-btn');
+        const gallery = document.querySelector('.photo-gallery');
+        
+        // Récupérer la préférence utilisateur du localStorage ou utiliser 3 par défaut
+        const savedColumns = localStorage.getItem('preferredColumns') || '3';
+        setGridColumns(savedColumns);
+        
+        // Marquer le bouton actif
+        gridButtons.forEach(btn => {
+            if (btn.dataset.columns === savedColumns) {
+                btn.classList.add('active');
+            }
+            
+            btn.addEventListener('click', () => {
+                // Mettre à jour la classe active
+                gridButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Changer le nombre de colonnes
+                const columns = btn.dataset.columns;
+                setGridColumns(columns);
+                
+                // Sauvegarder la préférence
+                localStorage.setItem('preferredColumns', columns);
             });
         });
-    });
-
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+        
+        function setGridColumns(columns) {
+            // Retirer les classes existantes
+            gallery.classList.remove('columns-2', 'columns-3', 'columns-4');
+            // Ajouter la nouvelle classe
+            gallery.classList.add(`columns-${columns}`);
         }
-        return array;
-    }
-</script>
+
+        // Initialisation
+        function init() {
+            setupEventListeners();
+            loadImages().catch(error => handleError(error));
+        }
+
+        // Démarrage de l'application
+        init();
+    </script>
 </body>
 </html>
