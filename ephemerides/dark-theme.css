@@ -1,5 +1,5 @@
+/* Variables du thème sombre */
 :root {
-    /* Couleurs de base */
     --dark-bg: #1a1a1a;
     --dark-text: #e0e0e0;
     --dark-link: #66b3ff;
@@ -7,7 +7,7 @@
     --dark-code-bg: #2d2d2d;
     --dark-highlight: #404040;
     
-    /* Variables Jupyter spécifiques */
+    /* Variables Jupyter */
     --jp-cell-editor-background: #2d2d2d;
     --jp-cell-editor-active-background: #363636;
     --jp-mirror-editor-variable-color: #e0e0e0;
@@ -38,16 +38,46 @@ a:hover {
     text-decoration: underline;
 }
 
-pre, code {
+pre { 
+    line-height: 125%;
     background-color: var(--dark-code-bg);
+    padding: 1em;
     border-radius: 4px;
-    padding: 0.2em 0.4em;
+}
+
+.jp-Cell {
+    margin: 1em 0;
+    padding: 1em;
+    background-color: var(--jp-cell-editor-background);
+    border-radius: 4px;
+    border: 1px solid var(--dark-border);
+}
+
+.jp-InputArea-editor {
+    border: 1px solid var(--dark-border);
+    border-radius: 4px;
+    padding: 1em;
+}
+
+.jp-OutputArea-output {
+    background-color: var(--dark-code-bg);
+    padding: 1em;
+    border-radius: 4px;
+    margin-top: 0.5em;
+    color: var(--dark-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--dark-text);
+    border-bottom: 1px solid var(--dark-border);
+    padding-bottom: 0.3em;
 }
 
 table {
     border-collapse: collapse;
     width: 100%;
     margin: 1em 0;
+    color: var(--dark-text);
 }
 
 th, td {
@@ -66,33 +96,22 @@ img {
     border-radius: 4px;
 }
 
-/* Style pour les cellules Jupyter */
-.jp-Cell {
-    margin: 1em 0;
-    padding: 1em;
-    background-color: var(--jp-cell-editor-background);
-    border-radius: 4px;
-}
-
-.jp-InputArea-editor {
-    border: 1px solid var(--dark-border);
-    border-radius: 4px;
-}
-
-/* Style pour les outputs */
-.jp-OutputArea-output {
-    background-color: var(--dark-code-bg);
-    padding: 1em;
-    border-radius: 4px;
-    margin-top: 0.5em;
-}
-
-/* Style pour les en-têtes */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--dark-text);
-    border-bottom: 1px solid var(--dark-border);
-    padding-bottom: 0.3em;
-}
+/* Style pour le code */
+.highlight { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }
+.highlight .hll { background-color: var(--jp-cell-editor-active-background) }
+.highlight .c { color: var(--jp-mirror-editor-comment-color); font-style: italic }
+.highlight .err { color: var(--jp-mirror-editor-error-color) }
+.highlight .k { color: var(--jp-mirror-editor-keyword-color); font-weight: bold }
+.highlight .o { color: var(--jp-mirror-editor-operator-color); font-weight: bold }
+.highlight .p { color: var(--jp-mirror-editor-punctuation-color) }
+.highlight .ch { color: var(--jp-mirror-editor-comment-color); font-style: italic }
+.highlight .cm { color: var(--jp-mirror-editor-comment-color); font-style: italic }
+.highlight .cp { color: var(--jp-mirror-editor-comment-color); font-style: italic }
+.highlight .c1 { color: var(--jp-mirror-editor-comment-color); font-style: italic }
+.highlight .cs { color: var(--jp-mirror-editor-comment-color); font-style: italic }
+.highlight .s { color: var(--jp-mirror-editor-string-color) }
+.highlight .n { color: var(--jp-mirror-editor-variable-color) }
+.highlight .m { color: var(--jp-mirror-editor-number-color) }
 
 /* Style pour les blocs de citation */
 blockquote {
