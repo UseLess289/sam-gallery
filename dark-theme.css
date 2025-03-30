@@ -1,0 +1,177 @@
+/* Import de la police JetBrains Mono */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+/* Variables du thème sombre */
+:root {
+    --dark-bg: #000000;
+    --dark-text: #e0e0e0;
+    --dark-link: #9f0000;
+    --dark-border: #333;
+    --dark-code-bg: #1a1a1a;
+    --dark-highlight: #2d2d2d;
+    
+    /* Variables Jupyter */
+    --jp-cell-editor-background: #000000;
+    --jp-cell-editor-active-background: #1a1a1a;
+    --jp-mirror-editor-variable-color: #580000;
+    --jp-mirror-editor-comment-color: #730101;
+    --jp-mirror-editor-keyword-color: #9f0000;
+    --jp-mirror-editor-string-color: #730101;
+    --jp-mirror-editor-number-color: #580000;
+    --jp-mirror-editor-operator-color: #580000;
+    --jp-mirror-editor-punctuation-color: #580000;
+    --jp-mirror-editor-error-color: #ff0000;
+}
+
+/* Force background color */
+html, body {
+    background-color: #000000 !important;
+    color: #e0e0e0 !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Force all text elements */
+p, div, span, li, td, th {
+    color: #e0e0e0 !important;
+}
+
+/* Code elements with modern styling */
+code, pre, .jp-InputArea-editor, .jp-OutputArea-output {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 14px !important;
+    color: #e0e0e0 !important;
+    background-color: #1a1a1a !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Styles des liens */
+a, a:visited, a:link {
+    color: #9f0000 !important;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #730101 !important;
+}
+
+pre { 
+    line-height: 125%;
+    background-color: #1a1a1a !important;
+    padding: 1.5em !important;
+    margin: 1.5em 0 !important;
+    border: 1px solid #333 !important;
+}
+
+.jp-Cell {
+    margin: 2em 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    transition: transform 0.2s ease-in-out !important;
+}
+
+.jp-Cell:hover {
+    transform: translateY(-2px) !important;
+}
+
+.jp-InputArea-editor {
+    background-color: #1a1a1a !important;
+    border: 1px solid #333 !important;
+    border-radius: 6px !important;
+    padding: 1.5em !important;
+    color: #e0e0e0 !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5) !important;
+    margin-bottom: 0.5em !important;
+}
+
+.jp-OutputArea-output {
+    background-color: #1a1a1a !important;
+    padding: 1.5em !important;
+    border-radius: 6px !important;
+    margin-top: 0.5em !important;
+    color: #e0e0e0 !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid #333 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #9f0000 !important;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.3em;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    color: var(--dark-text);
+}
+
+th, td {
+    border: 1px solid var(--dark-border);
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--dark-highlight);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* Style pour le code */
+.highlight { background: #1a1a1a !important; color: #e0e0e0 !important; }
+.highlight .hll { background-color: #2d2d2d !important; }
+.highlight .c { color: #6a9955 !important; font-style: italic }
+.highlight .err { color: #f14c4c !important; }
+.highlight .k { color: #569cd6 !important; font-weight: bold }
+.highlight .o { color: #d4d4d4 !important; font-weight: bold }
+.highlight .p { color: #d4d4d4 !important; }
+.highlight .ch { color: #6a9955 !important; font-style: italic }
+.highlight .cm { color: #6a9955 !important; font-style: italic }
+.highlight .cp { color: #6a9955 !important; font-style: italic }
+.highlight .c1 { color: #6a9955 !important; font-style: italic }
+.highlight .cs { color: #6a9955 !important; font-style: italic }
+.highlight .s { color: #ce9178 !important; }
+.highlight .n { color: #e0e0e0 !important; }
+.highlight .m { color: #b5cea8 !important; }
+
+/* Style pour les blocs de citation */
+blockquote {
+    border-left: 4px solid var(--dark-border);
+    margin: 0;
+    padding-left: 1em;
+    color: #888;
+}
+
+/* Style pour les listes */
+ul, ol {
+    padding-left: 2em;
+}
+
+/* Style pour le scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--dark-border);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-highlight);
+} 
