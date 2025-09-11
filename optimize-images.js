@@ -25,7 +25,7 @@ fs.readdir(inputDir, (err, files) => {
     }
 
     files.forEach(file => {
-        if (file.match(/\.(jpg|jpeg|png)$/i)) {
+        if (file.match(/\.(jpg|jpeg|png|JPG)$/i)) {
             const inputPath = path.join(inputDir, file);
             const outputPath = path.join(outputDir, `${path.parse(file).name}.webp`);
 
